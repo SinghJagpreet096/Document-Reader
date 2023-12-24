@@ -1,13 +1,17 @@
 import os
+import logging
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 import chainlit as cl
+from src.utils import get_docSearch
+from src.model import load_chain
 
 
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-embeddings = OpenAIEmbeddings()
+
+
+
 
 welcome_message = """ Upload your file here"""
 
@@ -25,3 +29,21 @@ async def start():
     file = files[0]
     msg = cl.Message(content=f"Processing `{type(files)}` {file.name}....")
     await msg.send()
+
+    docsearch = get_docSearch(file)
+    
+
+    chain = load_chain(docsearch)
+
+    logging.info(f"Model loaded successfully")
+
+    
+    ## let the user know when system is ready
+
+    msg.content = f"{file.name} processed. You begin asking questions"
+
+    await msg.update()
+
+    cl.user_session.set("chain", chain)
+
+

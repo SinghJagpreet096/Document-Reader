@@ -1,7 +1,7 @@
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
 import logging
-
+import os
 
 
 from src.config import Config
@@ -12,7 +12,7 @@ from src.config import Config
 
 def load_model():
     model = ChatOpenAI(temperature=Config.temperature,
-                   streaming=Config.streaming)
+                   streaming=Config.streaming,api_key=os.getenv('OPENAI_API_KEY'))
     return model
 
 

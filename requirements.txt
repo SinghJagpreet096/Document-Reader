@@ -4,3 +4,4 @@ python-dotenv
 chainlit
 chromadb
 tiktoken
+tokenizers

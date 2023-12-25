@@ -8,17 +8,11 @@ from src.utils import get_docSearch, get_source
 from src.model import load_chain
 
 
-
-
-
-
-
-
 welcome_message = """ Upload your file here"""
 
 @cl.on_chat_start
 async def start():
-    await cl.Message("you are in ").send()
+    await cl.Message(content="you are in ").send()
     logging.info(f"app started")
     files = None
     while files is None:
@@ -30,7 +24,7 @@ async def start():
         ).send()
     logging.info("uploader excecuted")
     file = files[0]
-    msg = cl.Message(content=f"Processing `{type(files)}` {file.name}....")
+    msg = cl.Message(content=f"Processing  {file.name}....")
     await msg.send()
 
     logging.info("processing started")
@@ -47,22 +41,38 @@ async def start():
     ## let the user know when system is ready
 
     msg.content = f"{file.name} processed. You begin asking questions"
-
     await msg.update()
 
     logging.info("processing completed")
 
     cl.user_session.set("chain", chain)
 
+    logging.info("chain saved for active session")
+
 @cl.on_message
 async def main(message):
+
+
     chain = cl.user_session.get("chain")
+
+    logging.info(f"retrived chain for QA {type(chain)}")
     cb = cl.AsyncLangchainCallbackHandler(
-        stream_final_answer=True, answer_prefix_tokens=["FINAL","ANSWER"]
+        stream_final_answer=True, answer_prefix_tokens=["FINAL", "ANSWER"]
     )
+    
+    logging.info("define call backs")
+
 
     cb.answer_reached = True
+    logging.info("answer reached")
+
     res = await chain.acall(message, callbacks=[cb])
+    logging.info("define res")
+
+
+    logging.info("call backs ")
+
+
 
     answer = res["answer"]
     sources = res["sources"].strip()
@@ -73,11 +83,17 @@ async def main(message):
     metadatas = [doc.metadata for doc in docs]
     all_sources = [m["source"]for m in metadatas]
 
-    source_elements,answer = get_source(sources,all_sources,docs,cl)
+    
+
+    source_elements = get_source(sources,all_sources,docs,cl)
+
+    logging.info("getting source")
 
     if cb.has_streamed_final_answer:
         cb.final_stream.elements = source_elements
         await cb.final_stream.update()
+        logging.info("call back triggred")
     else:
         await cl.Message(content=answer, elements=source_elements).send()
+        logging.info("post message")
 

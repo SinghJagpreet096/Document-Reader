@@ -1,15 +1,13 @@
 from chainlit.types import AskFileResponse
 import click
 from langchain.document_loaders import TextLoader
-from langchain.document_loaders import PyPDFDirectoryLoader
+from langchain.document_loaders import PyPDFLoader
 from langchain.vectorstores import Chroma
 
 
 from src.config import Config
-# import chainlit as cl
 import logging
-import openai
-import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,7 +21,7 @@ def process_file(file: AskFileResponse):
     if file.type == "text/plain":
         Loader = TextLoader
     elif file.type == "application/pdf":
-        Loader = PyPDFDirectoryLoader
+        Loader = PyPDFLoader
 
     with tempfile.NamedTemporaryFile() as tempfile:
         tempfile.write(file.content)
@@ -48,7 +46,9 @@ def get_docSearch(file,cl):
     
     docsearch = Chroma.from_documents(docs, Config.embeddings)
 
-    logging.info("embedding completed")
+    logging.info(f"embedding completed {type(Config.embeddings)}")
+
+    logging.info(f"type of docsearch {type(docsearch)}")
 
     return docsearch
 

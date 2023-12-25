@@ -9,5 +9,5 @@ class Config:
     streaming = True
     chain_type = "stuff"
     max_token_limit = 4098
-    embeddings = OpenAIEmbeddings(api_key=os.getenv('OPENAI_API_KEY'))
+    embeddings = OpenAIEmbeddings()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)

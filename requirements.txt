@@ -1,7 +1,7 @@
 langchain
-openai
-python-dotenv
+chroma
+pypdf
 chainlit
+openai
 chromadb
 tiktoken
-tokenizers

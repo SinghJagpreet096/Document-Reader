@@ -68,3 +68,6 @@ The chatbot may require configuration through environment variables. Check the `
 Create an OPENAI_API_KEY here https://platform.openai.com/api-keys
 
 
+hugging face
+
+

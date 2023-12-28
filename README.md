@@ -37,6 +37,10 @@ Follow these steps to get started with Document Reader:
     ```bash
     pip install -r requirements.txt
     ```
+5. Create .env:
+    ```bash
+    echo 'OPENAI_API_KEY=<your-openai-api-key>' > .env
+    ```
 
 4. Run your app:
 
@@ -57,16 +61,10 @@ Feel free to type "help" at any time for assistance.
 
 The chatbot may require configuration through environment variables. Check the `.env` file for details. 
 
-## Create an `.env` file.
 
-    ```bash
-    echo OPENAI_API_KEY = <your-openai-api-key> > .env
-    ```
 
-    ```bash
-    echo OPENAI_API_KEY = <your-openai-api-key> > .env
-    ```
-    
+
+
 Create an OPENAI_API_KEY here https://platform.openai.com/api-keys
 
 

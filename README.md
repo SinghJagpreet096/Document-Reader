@@ -58,9 +58,11 @@ Feel free to type "help" at any time for assistance.
 The chatbot may require configuration through environment variables. Check the `.env` file for details. 
 
 ## Create an `.env` file.
+
     ```bash
     echo OPENAI_API_KEY = <your-openai-api-key> > .env
     ```
+    
     ```bash
     echo OPENAI_API_KEY = <your-openai-api-key> > .env
     ```

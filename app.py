@@ -1,7 +1,7 @@
 import os
 import logging
 
-#pip install pypdf
+
 #export HNSWLIB_NO_NATIVE = 1
 
 from langchain.document_loaders import PyPDFDirectoryLoader, TextLoader
@@ -12,22 +12,34 @@ from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 import chainlit as cl
-
+from src.config import Config
 from src.utils import get_docsearch, get_source
 
 # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 # embeddings = OpenAIEmbeddings()
 
-welcome_message = """Welcome"""
+welcome_message = """Welcome to Your Document Reader!
+
+Here to assist you with any questions you have about a file. You can upload a file and ask me questions related to its content. Here's how you can get started:
+
+1. Click on the file upload button to share a document or image.
+2. Once the file is uploaded, feel free to ask me any questions about its content.
+3. I'll do my best to provide information or insights based on the uploaded file.
+
+If you need help or have any specific queries, type "help" at any time.
+
+Let's get the conversation started! """
 
 
 @cl.on_chat_start
 async def start():
-    await cl.Message("test").send()
+    await cl.Message("YOU ARE IN").send()
     files = None
     files = await cl.AskFileMessage(
         content=welcome_message,
         accept=["text/plain", "application/pdf"],
+        max_size_mb=Config.max_size_mb,
+        timeout=Config.timeout
     ).send()
 
     logging.info("file uploaded")
@@ -53,8 +65,8 @@ async def start():
 
     ## create chain that uses chroma vector store
     chain = ConversationalRetrievalChain.from_llm(
-        ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0, streaming=True),
-        chain_type="stuff",
+        ChatOpenAI(model_name=Config.model_name,temperature=Config.temperature, streaming=Config.streaming),
+        chain_type=Config.chain_type,
         retriever=docsearch.as_retriever(),
         memory=memory,
         return_source_documents=True,

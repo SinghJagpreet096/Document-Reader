@@ -1,14 +1,11 @@
-# Welcome to Chainlit! 🚀🤖
+Welcome to Your Document Reader!
 
-Hi there, Developer! 👋 We're excited to have you on board. Chainlit is a powerful tool designed to help you prototype, debug and share applications built on top of LLMs.
+Here to assist you with any questions you have about a file. You can upload a file and ask me questions related to its content. Here's how you can get started:
 
-## Useful Links 🔗
+1. Click on the file upload button to share a document or image.
+2. Once the file is uploaded, feel free to ask me any questions about its content.
+3. I'll do my best to provide information or insights based on the uploaded file.
 
-- **Documentation:** Get started with our comprehensive [Chainlit Documentation](https://docs.chainlit.io) 📚
-- **Discord Community:** Join our friendly [Chainlit Discord](https://discord.gg/k73SQ3FyUh) to ask questions, share your projects, and connect with other developers! 💬
+If you need help or have any specific queries, type "help" at any time.
 
-We can't wait to see what you create with Chainlit! Happy coding! 💻😊
-
-## Welcome screen
-
-To modify the welcome screen, edit the `chainlit.md` file at the root of your project. If you do not want a welcome screen, just leave this file empty.
+Let's get the conversation started! 

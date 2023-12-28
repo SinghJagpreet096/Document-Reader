@@ -2,6 +2,7 @@ from langchain.chains.qa_with_sources.retrieval import RetrievalQAWithSourcesCha
 from langchain.chat_models import ChatOpenAI
 import logging
 import os
+from langchain.chains import ConversationalRetrievalChain
 
 
 from src.config import Config
@@ -11,16 +12,21 @@ from src.config import Config
 
 
 def load_model():
-    model = ChatOpenAI(temperature=Config.temperature,
-                   streaming=Config.streaming)
+    model = ChatOpenAI(model_name=Config.model_name,
+                       temperature=Config.temperature, 
+                       streaming=Config.streaming)
     return model
 
 
 def load_chain(docsearch):
     model = load_model()
-    chain = RetrievalQAWithSourcesChain.from_chain_type(
-        ChatOpenAI(temperature=0, streaming=True),
-        chain_type="stuff",
-        retriever=docsearch.as_retriever(max_tokens_limit=4097),
+    
+    
+    chain = ConversationalRetrievalChain.from_llm(load_model,
+        chain_type=Config.chain_type,
+        retriever=docsearch.as_retriever(),
+        memory=Config.memory,
+        return_source_documents=True,
     )
+
     return chain

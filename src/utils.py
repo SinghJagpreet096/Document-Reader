@@ -6,13 +6,13 @@ from langchain.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 import chainlit as cl
-
+from src.config import Config
 
 from src.config import Config
 import logging
 
-text_splitter = RecursiveCharacterTextSplitter()
-embeddings = OpenAIEmbeddings()
+# text_splitter = RecursiveCharacterTextSplitter()
+# embeddings = OpenAIEmbeddings()
 
 def process_file(file: AskFileResponse):
     import tempfile
@@ -26,7 +26,7 @@ def process_file(file: AskFileResponse):
         tempfile.write(file.content)
         loader = Loader(tempfile.name)
         documents = loader.load()
-        docs = text_splitter.split_documents(documents)
+        docs = Config.text_splitter.split_documents(documents)
         for i, doc in enumerate(docs):
             doc.metadata["source"] = f"source_{i}"
         return docs
@@ -40,7 +40,7 @@ def get_docsearch(file: AskFileResponse):
     # Create a unique namespace for the file
 
     docsearch = Chroma.from_documents(
-        docs, embeddings
+        docs, Config.embeddings
     )
     return docsearch
 

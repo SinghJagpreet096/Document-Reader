@@ -7,7 +7,7 @@ COPY /src /app/src
 COPY requirements.txt /app/.
 COPY app.py /app/.
 COPY chainlit.md /app/.
-COPY .env /app/.
+
 
 RUN pip install -r requirements.txt
 

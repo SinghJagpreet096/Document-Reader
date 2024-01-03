@@ -1,6 +1,7 @@
 import os
 import logging
 
+# from dotenv import load_dotenv
 
 #export HNSWLIB_NO_NATIVE = 1
 
@@ -12,11 +13,16 @@ from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 import chainlit as cl
+import openai
 from src.config import Config
 from src.utils import get_docsearch, get_source
 
 # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 # embeddings = OpenAIEmbeddings()
+
+# load_dotenv()
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 
 welcome_message = """Welcome to Your Document Reader!
 
@@ -99,8 +105,6 @@ async def main(message: cl.Message):
 
     answer = res["answer"]
     source_documents = res["source_documents"]
-
-    
     
     text_elements = get_source(answer, source_documents)
     await cl.Message(content=answer, elements=text_elements).send()

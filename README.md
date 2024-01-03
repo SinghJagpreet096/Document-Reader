@@ -1,3 +1,12 @@
+---
+title: DR
+emoji: 📚
+colorFrom: red
+colorTo: blue
+sdk: docker
+pinned: false
+---
+
 # Document Reader
 
 Don't waste time reading lengthy Terms and Conditions! Upload your files here and ask anything you want to know.

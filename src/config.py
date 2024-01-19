@@ -1,5 +1,5 @@
 import os
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 

@@ -1,5 +1,5 @@
 from langchain.chains.qa_with_sources.retrieval import RetrievalQAWithSourcesChain
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 import logging
 import os
 from langchain.chains import ConversationalRetrievalChain

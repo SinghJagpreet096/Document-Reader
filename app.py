@@ -5,13 +5,13 @@ import logging
 
 #export HNSWLIB_NO_NATIVE = 1
 
-from langchain.document_loaders import PyPDFDirectoryLoader, TextLoader
+from langchain_community.document_loaders import PyPDFDirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from langchain.vectorstores import Chroma
+
 from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 import chainlit as cl
 import openai
 from src.config import Config

@@ -1,25 +1,12 @@
 FROM python:3.10
 
-WORKDIR /app
-
-
-COPY /src /app/src
-COPY requirements.txt /app/.
-COPY app.py /app/.
-COPY chainlit.md /app/.
-
-EXPOSE 7860
-
-RUN pip install -r requirements.txt
-
 RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \
-	PATH=/home/user/.local/bin:$PATH
-
+    PATH=/home/user/.local/bin:$PATH
 WORKDIR $HOME/app
-
 COPY --chown=user . $HOME/app
-
-CMD ["chainlit", "run", "--port","7860","app.py"]
-
+COPY ./requirements.txt ~/app/requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["chainlit", "run", "app.py", "--port", "7860"]

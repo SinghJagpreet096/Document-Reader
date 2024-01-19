@@ -25,7 +25,7 @@ WORKDIR $HOME/app
 
 # Try and run pip command after setting the user with `USER user` to avoid permission issues with Python
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir --upgrade -r app/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
 COPY --chown=user . $HOME/app

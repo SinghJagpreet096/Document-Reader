@@ -1,5 +1,6 @@
 langchain-community
 langchain
+langchain-openai
 chroma
 pypdf
 chainlit

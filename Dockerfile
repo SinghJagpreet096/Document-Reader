@@ -8,6 +8,7 @@ COPY requirements.txt /app/.
 COPY app.py /app/.
 COPY chainlit.md /app/.
 
+EXPOSE 7860
 
 RUN pip install -r requirements.txt
 

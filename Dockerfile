@@ -21,5 +21,5 @@ WORKDIR $HOME/app
 
 COPY --chown=user . $HOME/app
 
-CMD ["chainlit", "run", "--port 7860","app.py"]
+CMD ["chainlit", "run", "--port","7860","app.py"]
 
